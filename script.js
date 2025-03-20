@@ -33,3 +33,27 @@ const varieImmagini = function (data) {
     }
   })
 }
+
+const loadSecondaryImages = document.getElementById("loadSecondaryImages")
+
+loadSecondaryImages.addEventListener("click", () => {
+  fetch("https://api.pexels.com/v1/search?query=kittens", {
+    headers: {
+      Authorization: "wSmcKyWe1b3qNtmCLejrePP5ITTYAgIaCNfaHhr1JK3T3Gp9z3fz1FQq",
+    },
+  })
+    .then((responsive) => {
+      if (responsive.ok) {
+        return responsive.json()
+      } else {
+        throw new Error("errore nell'API")
+      }
+    })
+    .then((data) => {
+      imageContainer.innerHTML = ""
+      varieImmagini(data)
+    })
+    .catch((error) => {
+      console.log("errore", error)
+    })
+})
